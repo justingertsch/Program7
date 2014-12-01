@@ -64,7 +64,7 @@ public class Database implements IDatabase
                     if(line[0].equals(key))
                         return extractValue(line);
             }
-
+            throw new RuntimeException("No such record "+key);
         }
         catch (IOException e)
         {
@@ -75,7 +75,7 @@ public class Database implements IDatabase
 
     private String extractValue(String[] line)
     {
-        String val = null;
+        String val = "";
         for(int i = 1; i < line.length; i++)
         {
             val +=line[i]+" ";
