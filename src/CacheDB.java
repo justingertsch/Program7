@@ -60,7 +60,7 @@ public class CacheDB implements IDatabase
         int count = 2;
         for(String str : this.cache)
         {
-            if(count <= 5)
+            if(count <= SIZE)
             {
                 newCache.add(str);
                 count++;
