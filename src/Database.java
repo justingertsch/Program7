@@ -22,6 +22,7 @@ public class Database implements IDatabase
         catch (FileNotFoundException e)
         {
            System.out.println(id+" does not exist");
+            System.out.println("\n");
         }
 
     }
@@ -64,7 +65,7 @@ public class Database implements IDatabase
                     if(line[0].equals(key))
                         return extractValue(line);
             }
-            throw new RuntimeException("No such record "+key);
+            throw new RuntimeException("No such record: "+key);
         }
         catch (IOException e)
         {
@@ -80,8 +81,7 @@ public class Database implements IDatabase
         {
             val +=line[i]+" ";
         }
-        if(val != null)
-            val.trim();
+        val = val.trim();
         return val;
     }
 

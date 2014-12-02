@@ -1,3 +1,4 @@
+import javax.xml.crypto.Data;
 import java.util.ArrayList;
 
 /**
@@ -7,27 +8,23 @@ public class TestDriver
 {
     public static void main(String[] args)
     {
-        //Database db = new Database("db.dat");
-        //test(db);
-        ArrayList<String> tester = new ArrayList<String>();
-        tester.add("one");
-        tester.add("two");
-        tester.add("three");
-        tester.add("four");
+        Database db = new Database("db.dat");
+        test(db);
 
-        for(String a : tester)
-        {
-            System.out.println(a);
-        }
-        tester.remove("three");
-        for(String a : tester)
-        {
-            System.out.println(a);
-        }
+        Database userdb = new Database("user.dat");
+        SecureDB sdb = new SecureDB(db,userdb);
+        test(sdb);
 
-        System.out.println(tester.get(2));
+        CacheDB cdb = new CacheDB(db);
+        test(cdb);
+
+
+        Database db2 = new Database("noname.dat");
+
 
     }
+
+
 
     public static void test(IDatabase db)
     {
@@ -35,15 +32,19 @@ public class TestDriver
         {
             System.out.println(db.get("one"));
             System.out.println(db.get("two"));
+            System.out.println(db.get("two"));
             System.out.println(db.get("three"));
+            System.out.println(db.get("four"));
             System.out.println(db.get("four"));
             System.out.println(db.get("five"));
             System.out.println(db.get("six"));
             System.out.println(db.get("seven"));
+            System.out.println("\n");
         }
         catch (RuntimeException ex)
         {
             System.out.println(ex.getMessage());
+            System.out.println("\n");
         }
     }
 }

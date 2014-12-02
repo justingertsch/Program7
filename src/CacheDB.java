@@ -7,9 +7,9 @@ public class CacheDB implements IDatabase
 {
     final int SIZE = 5;
     ArrayList<String> cache = null;
-    Database db = null;
+    IDatabase db = null;
 
-    public CacheDB(Database db)
+    public CacheDB(IDatabase db)
     {
         this.db = db;
         cache = new ArrayList<String>();
@@ -42,7 +42,9 @@ public class CacheDB implements IDatabase
                 if(line[0].equals(key))
                 {
                     updateCache(str);
-                    return extractValue(line);
+                    String value = extractValue(line);
+                    System.out.println("retrieving \""+ value +"\" from cache");
+                    return value;
                 }
         }
         String value = db.get(key);
@@ -64,6 +66,7 @@ public class CacheDB implements IDatabase
                 count++;
             }
         }
+        this.cache = newCache;
     }
 
     private String extractValue(String[] line)
@@ -73,9 +76,19 @@ public class CacheDB implements IDatabase
         {
             val +=line[i]+" ";
         }
-        if(val != null)
-            val.trim();
+
+        val = val.trim();
         return val;
     }
 
+    @Override
+    public String toString()
+    {
+        String print = "Cache Contents:\n";
+        for(String str: this.cache)
+        {
+            print +="\t"+str+"\n";
+        }
+        return print;
+    }
 }
